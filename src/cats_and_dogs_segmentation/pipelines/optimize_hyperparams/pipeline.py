@@ -11,8 +11,8 @@ def create_pipeline(**kwargs) -> Pipeline:
     return pipeline([
         node(
             func=optimize_hyperparams,
-            inputs=["train_dataloader", "val_dataloader", "params:hyperparams_config",
-                    "params:num_epochs", "params:gpus", "params:project"],
+            inputs=["train_dataloader", "val_dataloader", "params:default_config",
+                    "params:hyperparams_config", "params:num_epochs", "params:gpus", "params:project"],
             outputs=None,
             name="optimize_hyperparams"
         )

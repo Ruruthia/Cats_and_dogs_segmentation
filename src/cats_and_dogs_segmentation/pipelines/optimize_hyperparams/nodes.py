@@ -8,14 +8,9 @@ from cats_and_dogs_segmentation.models.unet import UNetLit
 from pytorch_lightning.loggers import WandbLogger
 
 
-def optimize_hyperparams(train_data_loader, val_data_loader, hyperparams_config, num_epochs, gpus, project):
+def optimize_hyperparams(train_data_loader, val_data_loader, default_config, hyperparams_config, num_epochs, gpus, project):
     def train():
-        wandb.init(config={
-            "lr": 0.01,
-            "eps": 1.0e-08,
-            "step_size": 4,
-            "gamma": 0.1
-        })
+        wandb.init(config=default_config)
         config = wandb.config
         model = UNetLit(config)
 
