@@ -15,8 +15,6 @@ class UNetLit(pl.LightningModule):
         self.step_size = config["step_size"]
         self.gamma = config["gamma"]
 
-        self.save_hyperparameters()
-
         self.model = UNet11(pretrained=True)
         self.loss_fn = BinaryFocalLoss()
 
