@@ -24,7 +24,7 @@ def download_and_transform_data(path: str) \
         transforms.PILToTensor(),
         # Transform classes (animal, animal_border, background) into (animal, background).
         # Binary classes are needed to use the pretrained model.
-        lambda x: x.type(torch.FloatTensor) // 2
+        lambda x: torch.div(x.type(torch.FloatTensor), 2, rounding_mode='trunc')
     ])
 
     pets_dataset = datasets.OxfordIIITPet(
