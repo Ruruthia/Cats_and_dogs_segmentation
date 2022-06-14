@@ -19,5 +19,5 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return {"__default__": data_processing_pipeline + train_model_pipeline + evaluate_model_pipeline,
             "data_processing": data_processing_pipeline,
             "train_model": data_processing_pipeline + train_model_pipeline + evaluate_model_pipeline,
-            "evaluate_model": evaluate_model_independent_pipeline
+            "evaluate_model": data_processing_pipeline + evaluate_model_independent_pipeline
             }
