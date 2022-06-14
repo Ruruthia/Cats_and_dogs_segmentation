@@ -11,7 +11,7 @@ def create_pipeline(**kwargs) -> Pipeline:
     return pipeline([
         node(
             func=evaluate,
-            inputs=["test_data_loader", "model_path", "params:gpus", "params:project"],
+            inputs=["test_dataloader", "model_path", "params:gpus", "params:project"],
             outputs=None,
             name="evaluate_model"
         ),
@@ -22,7 +22,7 @@ def create_pipeline_independent(**kwargs) -> Pipeline:
     return pipeline([
         node(
             func=evaluate,
-            inputs=["test_data_loader", "params:model_path", "params:gpus", "params:project"],
+            inputs=["test_dataloader", "params:model_path", "params:gpus", "params:project"],
             outputs=None,
             name="evaluate_model"
         ),

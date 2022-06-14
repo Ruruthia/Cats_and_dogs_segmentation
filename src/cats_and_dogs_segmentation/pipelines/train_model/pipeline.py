@@ -11,7 +11,7 @@ def create_pipeline(**kwargs) -> Pipeline:
     return pipeline([
         node(
             func=train,
-            inputs=["train_data_loader", "val_data_loader", "params:config",
+            inputs=["train_dataloader", "val_dataloader", "params:config",
                     "params:num_epochs", "params:gpus", "params:project"],
             outputs="model_path",
             name="train_model"

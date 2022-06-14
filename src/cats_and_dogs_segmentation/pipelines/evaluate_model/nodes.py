@@ -3,7 +3,8 @@ This is a boilerplate pipeline 'evaluate_model'
 generated using Kedro 0.18.1
 """
 
-import Path
+from pathlib import Path
+
 import pytorch_lightning as pl
 from cats_and_dogs_segmentation.models.unet import UNetLit
 from pytorch_lightning.loggers import WandbLogger

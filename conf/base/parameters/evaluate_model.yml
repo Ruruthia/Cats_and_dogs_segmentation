@@ -1,13 +1,7 @@
-# This is a boilerplate parameters config generated for pipeline 'train_model'
+# This is a boilerplate parameters config generated for pipeline 'evaluate_model'
 # using Kedro 0.18.1.
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.18.1/kedro_project_setup/configuration.html#parameters
 
-config: {
-    "lr": 0.01,
-    "eps": 1.0e-08,
-    "step_size": 4,
-    "gamma": 0.1
-}
-num_epochs: 10
+model_path: ''
