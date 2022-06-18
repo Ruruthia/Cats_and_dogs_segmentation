@@ -4,3 +4,4 @@ git clone https://$(gcloud secrets versions access latest --secret github-pat)@g
 cd Cats_and_dogs_segmentation
 conda env create -f src/environment.yml -n cads
 conda activate cads
+wandb login $(gcloud secrets versions access latest --secret wandb)
