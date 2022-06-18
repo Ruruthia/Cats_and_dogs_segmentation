@@ -26,8 +26,8 @@ resource "google_service_account" "cads_service_account" {
 
 }
 
-resource "google_project_iam_binding" "bucket_user" {
-  role = "roles/storage.objectCreator"
+resource "google_project_iam_binding" "bucket_admin" {
+  role = "roles/storage.objectAdmin"
   project = "citric-bee-353709"
   members = [
     "serviceAccount:${google_service_account.cads_service_account.email}"
