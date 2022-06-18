@@ -15,18 +15,40 @@ provider "google" {
   zone    = "europe-central2-a"
 }
 
-resource "google_compute_disk" "default" {
-  name = "cads-persistent-disk"
-  type = "pd-balanced"
-  zone = "europe-central2-a"
-  size = 100
+resource "google_storage_bucket" "default" {
+  name     = "cads-bucket"
+  location = "EU"
+}
+
+resource "google_service_account" "cads_service_account" {
+  account_id   = "cads-instance-sa"
+  display_name = "Cads compute instance service account"
+
+}
+
+resource "google_project_iam_binding" "bucket_user" {
+  role = "roles/storage.objectCreator"
+  project = "citric-bee-353709"
+  members = [
+    "serviceAccount:${google_service_account.cads_service_account.email}"
+  ]
+}
+
+resource "google_project_iam_binding" "secrets_user" {
+  role = "roles/secretmanager.viewer"
+  project = "citric-bee-353709"
+  members = [
+    "serviceAccount:${google_service_account.cads_service_account.email}"
+  ]
 }
 
 resource "google_compute_instance" "default" {
-  name                    = "cads-instance-1"
-  machine_type            = "e2-standard-2"
-  zone                    = "europe-central2-a"
-  metadata_startup_script = file("${path.module}/startup.sh")
+  name         = "cads-instance-1"
+  machine_type = "e2-standard-2"
+  zone         = "europe-central2-a"
+  allow_stopping_for_update = true
+
+  //  metadata_startup_script = file("${path.module}/startup.sh")
 
   boot_disk {
     initialize_params {
@@ -34,18 +56,16 @@ resource "google_compute_instance" "default" {
     }
   }
 
-  attached_disk {
-    source      = google_compute_disk.default.self_link
-    mode        = "READ_WRITE"
-    device_name = "cads-disk"
-  }
-
   network_interface {
     network = "default"
 
     access_config {
-
     }
+  }
+
+  service_account {
+    email  = google_service_account.cads_service_account.email
+    scopes = ["cloud-platform"]
   }
 }
 
