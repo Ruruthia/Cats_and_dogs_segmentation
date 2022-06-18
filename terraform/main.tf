@@ -48,7 +48,7 @@ resource "google_compute_instance" "default" {
   zone         = "europe-central2-a"
   allow_stopping_for_update = true
 
-  //  metadata_startup_script = file("${path.module}/startup.sh")
+  metadata_startup_script = file("${path.module}/startup.sh")
 
   boot_disk {
     initialize_params {
