@@ -34,8 +34,8 @@ resource "google_project_iam_binding" "bucket_user" {
   ]
 }
 
-resource "google_project_iam_binding" "secrets_user" {
-  role = "roles/secretmanager.viewer"
+resource "google_project_iam_binding" "secrets_accessor" {
+  role = "roles/secretmanager.secretAccessor"
   project = "citric-bee-353709"
   members = [
     "serviceAccount:${google_service_account.cads_service_account.email}"
