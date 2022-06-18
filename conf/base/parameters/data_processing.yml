@@ -1,0 +1,12 @@
+# This is a boilerplate parameters config generated for pipeline 'data_processing'
+# using Kedro 0.18.1.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://kedro.readthedocs.io/en/0.18.1/kedro_project_setup/configuration.html#parameters
+
+raw_data_filepath: data/01_raw
+val_ratio: 0.2
+test_ratio: 0.1
+seed: 42
+batch_size: 16
+num_workers: 8

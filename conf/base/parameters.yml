@@ -1,0 +1,2 @@
+gpus: 1
+project: 'cats_and_dogs_segmentation'

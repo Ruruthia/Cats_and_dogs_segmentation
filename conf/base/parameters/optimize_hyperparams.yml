@@ -1,0 +1,18 @@
+# This is a boilerplate parameters config generated for pipeline 'optimize_hyperparams'
+# using Kedro 0.18.1.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://kedro.readthedocs.io/en/0.18.1/kedro_project_setup/configuration.html#parameters
+
+hyperparams_config: {
+    "lr": [0.01, 0.001, 0.0001],
+    "eps": [1.0e-08, 1.0e-07, 1.0e-06],
+    "step_size": [2, 4, 6, 8],
+    "gamma": [0.1, 0.05, 0.01]
+}
+default_config: {
+    "lr": 0.01,
+    "eps": 1.0e-08,
+    "step_size": 4,
+    "gamma": 0.1
+}
