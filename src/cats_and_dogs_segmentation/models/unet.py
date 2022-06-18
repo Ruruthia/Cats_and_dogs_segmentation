@@ -1,3 +1,5 @@
+from typing import Dict, Any
+
 import pytorch_lightning as pl
 from pytorch_toolbelt.losses import BinaryFocalLoss
 from ternausnet.models import UNet11
@@ -7,7 +9,7 @@ from torch.optim import lr_scheduler
 
 class UNetLit(pl.LightningModule):
 
-    def __init__(self, config):
+    def __init__(self, config: Dict[str, Any]):
         super().__init__()
 
         self.lr = config["lr"]

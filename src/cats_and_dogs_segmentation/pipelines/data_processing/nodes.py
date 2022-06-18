@@ -11,8 +11,9 @@ generated using Kedro 0.18.1
 """
 
 
-def download_and_transform_data(path: str) \
-        -> datasets.OxfordIIITPet:
+def download_and_transform_data(
+        path: str
+) -> datasets.OxfordIIITPet:
 
     transform = transforms.Compose([
         transforms.Resize((256, 256)),
