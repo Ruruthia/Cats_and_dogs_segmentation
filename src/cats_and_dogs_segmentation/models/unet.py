@@ -3,13 +3,23 @@ from typing import Dict, Any
 import pytorch_lightning as pl
 from pytorch_toolbelt.losses import BinaryFocalLoss
 from ternausnet.models import UNet11
-from torch.optim import Adam
-from torch.optim import lr_scheduler
+from torch.optim import Adam, lr_scheduler
 
 
 class UNetLit(pl.LightningModule):
-
+    """ A pytorch lightning wrapper for UNet11.
+    """
     def __init__(self, config: Dict[str, Any]):
+        """Initializes the model with hyperparameters.
+
+        Args:
+            config:
+                A dict of model hyperparameters. It should contain following fields:
+                lr - learning rate of Adam optimizer
+                eps - term added to denominator to improve numerical stability in Adam optimizer
+                step_size - period of learning rate decay in scheduler
+                gamma - multiplicative factor of learning rate decay in scheduler
+        """
         super().__init__()
 
         self.lr = config["lr"]

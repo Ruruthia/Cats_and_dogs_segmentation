@@ -17,6 +17,18 @@ def evaluate(
         gpus: int,
         project: str,
 ) -> None:
+    """Evaluates a model.
+
+    Args:
+        test_data_loader:
+            Data loader for test dataset.
+        model_path:
+            A path to model checkpoint file.
+        gpus:
+            Number of gpus to use.
+        project:
+            Project name for wandb.
+    """
     model = UNetLit.load_from_checkpoint(checkpoint_path=model_path)
 
     trainer = pl.Trainer(gpus=gpus, logger=WandbLogger(save_dir=f"logs/", project=project,

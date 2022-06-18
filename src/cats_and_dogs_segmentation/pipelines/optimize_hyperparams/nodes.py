@@ -20,6 +20,30 @@ def optimize_hyperparams(
         gpus: int,
         project: str,
 ) -> None:
+    """ Optimizes hyperparameters of a UNetLit model.
+
+    Args:
+        train_data_loader:
+            Data loader for train dataset.
+        val_data_loader:
+            Data loader for validation dataset.
+        default_config:
+            A dict of default model hyperparameters. It should contain following fields:
+            lr - learning rate of Adam optimizer
+            eps - term added to denominator to improve numerical stability in Adam optimizer
+            step_size - period of learning rate decay in scheduler
+            gamma - multiplicative factor of learning rate decay in scheduler
+        hyperparams_config:
+            A dict of lists of model hyperparameters to try during optimization.
+            It should contain the same fields as default_config.
+        num_epochs:
+            Maximum number of epochs to train the model for.
+        gpus:
+            Number of gpus to use.
+        project:
+            Project name for wandb.
+    """
+
     def train():
         wandb.init(config=default_config)
         config = wandb.config

@@ -18,6 +18,30 @@ def train(
         gpus: int,
         project: str,
 ) -> str:
+    """ Trains a UNetLit model.
+
+    Args:
+        train_data_loader:
+            Data loader for train dataset.
+        val_data_loader:
+            Data loader for validation dataset.
+        config:
+            A dict of model hyperparameters. It should contain following fields:
+            lr - learning rate of Adam optimizer
+            eps - term added to denominator to improve numerical stability in Adam optimizer
+            step_size - period of learning rate decay in scheduler
+            gamma - multiplicative factor of learning rate decay in scheduler
+        num_epochs:
+            Maximum number of epochs to train the model for.
+        gpus:
+            Number of gpus to use.
+        project:
+            Project name for wandb.
+
+    Returns:
+        Path to the checkpoint of best model.
+
+    """
     model = UNetLit(config)
     checkpoint_callback = pl.callbacks.ModelCheckpoint(
         monitor='val_acc',

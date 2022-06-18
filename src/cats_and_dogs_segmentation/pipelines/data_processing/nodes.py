@@ -12,8 +12,17 @@ generated using Kedro 0.18.1
 
 
 def download_and_transform_data(
-        path: str
+        data_dir: str
 ) -> datasets.OxfordIIITPet:
+    """ Downloads and transforms the Oxford-IIIT Pet dataset.
+
+    Args:
+        data_dir:
+            Directory in which to save the dataset.
+
+    Returns:
+        Pytorch's Oxford-IIIT Pet dataset.
+    """
 
     transform = transforms.Compose([
         transforms.Resize((256, 256)),
@@ -29,11 +38,12 @@ def download_and_transform_data(
     ])
 
     pets_dataset = datasets.OxfordIIITPet(
-        root=path,
+        root=data_dir,
         target_types='segmentation',
         download=True,
         transform=transform,
-        target_transform=target_transform)
+        target_transform=target_transform,
+    )
 
     return pets_dataset
 
@@ -44,6 +54,21 @@ def split_data(
         test_ratio: float,
         seed: int
 ) -> Dict[str, datasets.OxfordIIITPet]:
+    """Split the Oxford-IIIT Pet dataset into train, val and test sets.
+
+    Args:
+        pets_dataset:
+            Pytorch's Oxford-IIIT Pet dataset.
+        val_ratio:
+            Fraction of dataset to use for validation.
+        test_ratio:
+            Fraction of dataset to use for testing.
+        seed:
+            Seed for random numbers generator.
+
+    Returns:
+        A dict containing train, validation and test datasets.
+    """
 
     random.seed(seed)
 
@@ -65,6 +90,19 @@ def prepare_dataloaders(
         batch_size: int,
         num_workers: int,
 ) -> List[DataLoader]:
+    """Makes dataloaders from datasets.
+
+    Args:
+        pets_dataset_splits:
+            A dict containing train, validation and test datasets.
+        batch_size:
+            Size of batches returned by dataloaders.
+        num_workers:
+            Number of workers to be used by dataloaders.
+
+    Returns:
+        A list containing train, validation and test dataloaders.
+    """
 
     dataloaders = [DataLoader(
             pets_dataset_splits[dataset_type],
