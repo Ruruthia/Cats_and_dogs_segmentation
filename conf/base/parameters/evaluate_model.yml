@@ -4,4 +4,4 @@
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.18.1/kedro_project_setup/configuration.html#parameters
 
-model_path: ''
+model_path: '/home/maria/Documents/Image_segmentation/cats_and_dogs_segmentation/data/06_models/model-epoch=07-val_acc=0.95.ckpt'

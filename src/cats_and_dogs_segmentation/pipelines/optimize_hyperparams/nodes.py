@@ -60,7 +60,7 @@ def optimize_hyperparams(
             mode='max',
         )
 
-        trainer = pl.Trainer(logger=WandbLogger(save_dir=f'gs://cads-bucket/wandb_logs', project=project),
+        trainer = pl.Trainer(logger=WandbLogger(save_dir="logs/", project=project),
                              gpus=gpus, max_epochs=num_epochs, callbacks=[checkpoint_callback])
 
         trainer.fit(model, train_data_loader, val_data_loader)

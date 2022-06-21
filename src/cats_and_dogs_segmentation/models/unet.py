@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 import pytorch_lightning as pl
 from pytorch_toolbelt.losses import BinaryFocalLoss
@@ -9,7 +9,7 @@ from torch.optim import Adam, lr_scheduler
 class UNetLit(pl.LightningModule):
     """ A pytorch lightning wrapper for UNet11.
     """
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
         """Initializes the model with hyperparameters.
 
         Args:
@@ -21,11 +21,11 @@ class UNetLit(pl.LightningModule):
                 gamma - multiplicative factor of learning rate decay in scheduler
         """
         super().__init__()
-
-        self.lr = config["lr"]
-        self.eps = config["eps"]
-        self.step_size = config["step_size"]
-        self.gamma = config["gamma"]
+        if config:
+            self.lr = config["lr"]
+            self.eps = config["eps"]
+            self.step_size = config["step_size"]
+            self.gamma = config["gamma"]
 
         self.model = UNet11(pretrained=True)
         self.loss_fn = BinaryFocalLoss()
