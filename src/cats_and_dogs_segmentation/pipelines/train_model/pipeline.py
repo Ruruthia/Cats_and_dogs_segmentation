@@ -12,7 +12,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         node(
             func=train,
             inputs=["train_dataloader", "val_dataloader", "params:config",
-                    "params:num_epochs", "params:gpus", "params:project"],
+                    "params:num_epochs", "params:gpus", "params:project", "params:checkpoints_dir_path"],
             outputs="model_path",
             name="train_model"
         )
