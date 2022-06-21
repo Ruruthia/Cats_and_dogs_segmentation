@@ -9,7 +9,7 @@ from pytorch_lightning.loggers import WandbLogger
 
 
 def optimize_hyperparams(train_data_loader, val_data_loader, default_config, hyperparams_config,
-                         num_epochs, gpus, project):
+                         num_epochs, gpus, project, checkpoints_dir_path):
     def train():
         wandb.init(config=default_config)
         config = wandb.config
@@ -17,7 +17,7 @@ def optimize_hyperparams(train_data_loader, val_data_loader, default_config, hyp
 
         checkpoint_callback = pl.callbacks.ModelCheckpoint(
             monitor='val_acc',
-            dirpath='gs://cads-bucket/model_checkpoints',
+            dirpath=checkpoints_dir_path,
             filename='model-{epoch:02d}-{val_acc:.2f}',
             save_top_k=1,
             mode='max')
