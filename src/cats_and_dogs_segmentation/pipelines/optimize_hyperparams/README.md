@@ -1,21 +1,22 @@
 # Pipeline optimize_hyperparams
 
-> *Note:* This is a `README.md` boilerplate generated using `Kedro 0.18.1`.
-
 ## Overview
 
-<!---
-Please describe your modular pipeline here.
--->
+This pipeline is handling optimization of model's hyperparameters.
 
 ## Pipeline inputs
 
-<!---
-The list of pipeline inputs.
--->
+Following inputs are supplied from the parameters file or previous pipelines:
+train_dataloader, val_dataloader (from data_processing pipeline)
+params:default_config
+params:hyperparams_config
+params:num_epochs
+params:gpus 
+params:project 
+params:checkpoints_dir_path
+
+Their meaning is documented in the nodes.py file.
 
 ## Pipeline outputs
 
-<!---
-The list of pipeline outputs.
--->
+The pipeline does not output anything, but it logs the results of optimization to stdout and wandb.

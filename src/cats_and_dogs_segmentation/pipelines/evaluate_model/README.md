@@ -1,21 +1,19 @@
 # Pipeline evaluate_model
 
-> *Note:* This is a `README.md` boilerplate generated using `Kedro 0.18.1`.
-
 ## Overview
 
-<!---
-Please describe your modular pipeline here.
--->
+This pipeline is handling evaluation of a model, either produced by train_model pipeline or loaded from checkpoint.
 
 ## Pipeline inputs
 
-<!---
-The list of pipeline inputs.
--->
+Following inputs are supplied from the parameters file or previous pipelines:
+test_dataloader (from data_processing pipeline)
+model_path (from train_model pipeline) or params:model_path
+params:gpus
+params:project
+
+Their meaning is documented in the nodes.py file.
 
 ## Pipeline outputs
 
-<!---
-The list of pipeline outputs.
--->
+The pipeline does not output anything, but it logs the results of evaluation to stdout and wandb.

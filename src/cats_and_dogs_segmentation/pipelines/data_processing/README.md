@@ -1,21 +1,21 @@
 # Pipeline data_processing
 
-> *Note:* This is a `README.md` boilerplate generated using `Kedro 0.18.1`.
-
 ## Overview
 
-<!---
-Please describe your modular pipeline here.
--->
+This pipeline is handling downloading and transforming the Oxford Pets data.
 
 ## Pipeline inputs
 
-<!---
-The list of pipeline inputs.
--->
+Following inputs are supplied from the parameters file:
+params:raw_data_filepath
+params:val_ratio
+params:test_ratio 
+params:seed
+params:batch_size 
+params:num_workers
+
+Their meaning is documented in the nodes.py file.
 
 ## Pipeline outputs
 
-<!---
-The list of pipeline outputs.
--->
+The pipeline outputs prepared data in form of following Dataloaders: train_dataloader, val_dataloader and test_dataloader.
