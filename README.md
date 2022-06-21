@@ -1,28 +1,28 @@
 # Cats_and_dogs_segmentation
 
+## Task
+
+The goal of the project is to deliver a deep-learning, instance segmentation model for an open-source dataset of Oxford Pets.
+
+The project consists of a training and evaluation scripts wrapped with Kedro project. 
+Additionally, the project is prepared to be run on Google Cloud Platform, where it can be provisioned using Terraform.
+
+The summary of experiments can be found in `docs/summary.md`.
+
 ## Overview
 
 This is your new Kedro project, which was generated using `Kedro 0.18.1`.
 
 Take a look at the [Kedro documentation](https://kedro.readthedocs.io) to get started.
 
-## Rules and guidelines
-
-In order to get the best out of the template:
-
-* Don't remove any lines from the `.gitignore` file we provide
-* Make sure your results can be reproduced by following a [data engineering convention](https://kedro.readthedocs.io/en/stable/faq/faq.html#what-is-data-engineering-convention)
-* Don't commit data to your repository
-* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
-
 ## How to install dependencies
 
-Declare any dependencies in `src/requirements.txt` for `pip` installation and `src/environment.yml` for `conda` installation.
+Declare any dependencies in `src/environment.yml` for `conda` installation.
 
 To install them, run:
 
 ```
-pip install -r src/requirements.txt
+conda env create -f src/environment.yml
 ```
 
 ## How to run your Kedro pipeline
@@ -33,90 +33,29 @@ You can run your Kedro project with:
 kedro run
 ```
 
-## How to test your Kedro project
+## Available pipelines
 
-Have a look at the file `src/tests/test_run.py` for instructions on how to write your tests. You can run your tests as follows:
+Four pipelines are available:
+- `data_processing`
+- `train_model`
+- `evaluate_model`
+- `optimize_hyperparams`
 
-```
-kedro test
-```
+Each of them is described in greater details in its corresponding README, which can be found in `src/pipelines/pipeline_name` directory.
 
-To configure the coverage threshold, go to the `.coveragerc` file.
+## Running on the GCP
 
-## Project dependencies
+To run the model on Google Cloud Platform:
 
-To generate or update the dependency requirements for your project:
+1. Install Terraform, make an account and project on GCP
+2. Add credentials to enable access to GCP by Terraform to `conf/local`. Add your credentials to WandB to GCP Secret Manager.
+3. Change project name and credentials path in the `terraform/main.tf` file to the ones you created in steps 1. and 2. 
+4. Run `terraform apply` locally. It should build the whole project from scratch.
+5. When it is ready, SSH to your new VM through GCP interface. The repository with code should already be available. 
+Run `. setup.sh` to setup conda environment and log to WandB.
+6. Now, you can run Kedro pipelines in the Cloud! 
+If you want to store model checkpoints in Cloud Storage remember to set correct value to `checkpoints_dir_path` parameter.
+7. After finishing work, run `terraform destroy` to destroy all the provisioned resources. 
+If your Cloud Storage bucket is not empty, it **will not** be deleted.
 
-```
-kedro build-reqs
-```
-
-This will `pip-compile` the contents of `src/requirements.txt` into a new file `src/requirements.lock`. You can see the output of the resolution by opening `src/requirements.lock`.
-
-After this, if you'd like to update your project requirements, please update `src/requirements.txt` and re-run `kedro build-reqs`.
-
-[Further information about project dependencies](https://kedro.readthedocs.io/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
-
-## How to work with Kedro and notebooks
-
-> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, `catalog`, and `startup_error`.
->
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r src/requirements.txt` you will not need to take any extra steps before you use them.
-
-### Jupyter
-To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
-
-```
-pip install jupyter
-```
-
-After installing Jupyter, you can start a local notebook server:
-
-```
-kedro jupyter notebook
-```
-
-### JupyterLab
-To use JupyterLab, you need to install it:
-
-```
-pip install jupyterlab
-```
-
-You can also start JupyterLab:
-
-```
-kedro jupyter lab
-```
-
-### IPython
-And if you want to run an IPython session:
-
-```
-kedro ipython
-```
-
-### How to convert notebook cells to nodes in a Kedro project
-You can move notebook code over into a Kedro project structure using a mixture of [cell tagging](https://jupyter-notebook.readthedocs.io/en/stable/changelog.html#release-5-0-0) and Kedro CLI commands.
-
-By adding the `node` tag to a cell and running the command below, the cell's source code will be copied over to a Python file within `src/<package_name>/nodes/`:
-
-```
-kedro jupyter convert <filepath_to_my_notebook>
-```
-> *Note:* The name of the Python file matches the name of the original notebook.
-
-Alternatively, you may want to transform all your notebooks in one go. Run the following command to convert all notebook files found in the project root directory and under any of its sub-folders:
-
-```
-kedro jupyter convert --all
-```
-
-### How to ignore notebook output cells in `git`
-To automatically strip out all output cell contents before committing to `git`, you can run `kedro activate-nbstripout`. This will add a hook in `.git/config` which will run `nbstripout` before anything is committed to `git`.
-
-> *Note:* Your output cells will be retained locally.
-
-## Package your Kedro project
-
-[Further information about building project documentation and packaging your project](https://kedro.readthedocs.io/en/stable/tutorial/package_a_project.html)
+Unfortunately, the machines with GPUs are unavailable when using free GCP trial, so we were not able to experiment with multi-GPU computations.
