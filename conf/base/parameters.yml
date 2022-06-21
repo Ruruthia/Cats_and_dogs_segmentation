@@ -1,2 +1,3 @@
 gpus: 1
 project: 'cats_and_dogs_segmentation'
+checkpoints_dir_path: 'gs://cads-bucket/model_checkpoints'

@@ -157,3 +157,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# terraform
+terraform/*
+!terraform/main.tf
+!terraform/startup.sh

@@ -31,7 +31,7 @@ def evaluate(
     """
     model = UNetLit.load_from_checkpoint(checkpoint_path=model_path)
 
-    trainer = pl.Trainer(gpus=gpus, logger=WandbLogger(save_dir=f"logs/", project=project,
+    trainer = pl.Trainer(gpus=gpus, logger=WandbLogger(save_dir='gs://cads-bucket/wandb_logs', project=project,
                                                        name=f'{Path(model_path).stem}_evaluation'))
 
     trainer.test(model, test_data_loader)
